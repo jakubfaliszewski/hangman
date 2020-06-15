@@ -9,6 +9,12 @@ namespace hangman
 
         static void Main()
         {
+            StartProgram();
+            
+        }
+
+        static void StartProgram()
+        {
             UI.PrintTitle();
             UI.PrintMainMenu();
             GetMainMenu();
@@ -39,6 +45,8 @@ namespace hangman
             if (password == null)
                 password = Passwords.GetOne();
             string letterError = null;
+            bool gameFinished = false;
+            bool isWin = false;
             string validChars = "QWERTYUIOPASDFGHJKLZXCVBNM";
             List<char> wrongLetters = new List<char>();
             List<char> correctLetters = new List<char>();
@@ -62,13 +70,26 @@ namespace hangman
                     else
                         wrongLetters.Add(newLetter);
                 }
-            } while (wrongLetters.Count < 8);
-
+                isWin = correctLetters.Count == (new HashSet<char>(password)).Count;
+                gameFinished = wrongLetters.Count >= 7 || isWin; 
+            } while (!gameFinished);
+            UI.PrintGameMenu(password, correctLetters, wrongLetters, letterError);
+            EndGame(isWin);
         }
 
         static void CustomGame()
         {
             StandardGame("INPUT");
+        }
+
+        static void EndGame(bool isWin)
+        {
+            Console.WriteLine("");
+            bool playAgain = UI.EndGameUI(isWin);
+            if (playAgain)
+            {
+                StartProgram();
+            }
         }
 
         static void ExitGame()

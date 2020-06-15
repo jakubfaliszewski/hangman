@@ -42,9 +42,25 @@ namespace Hangman
             PrintGameStatus(wrongLetters.Count);
             Console.Write("Pick a letter: ");
         }
+
+        public static bool EndGameUI(bool isWin)
+        {
+            if (isWin)
+            {
+                Console.WriteLine("Congrats! You won!");
+            }
+            else
+            {
+                Console.WriteLine("Oh, man. So sorry. You lost");
+            }
+            Console.WriteLine("Do you want to try again? Y/N");
+            char userInput = Console.ReadKey().KeyChar;
+            if (Char.ToUpper(userInput) == 'Y')
+                return true;
+            else return false;
+        }
         private static void PrintGameStatus(int status)
         {
-
             // could be simplified
             // but readability here is more important
             switch (status)
