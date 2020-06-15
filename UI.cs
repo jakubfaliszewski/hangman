@@ -9,6 +9,7 @@ namespace Hangman
 
         public static void PrintTitle()
         {
+            Console.Clear();
             Console.WriteLine(@" _                                             ");
             Console.WriteLine(@"| |                                            ");
             Console.WriteLine(@"| |__   __ _ _ __   __ _ _ __ ___   __ _ _ __  ");
@@ -25,9 +26,118 @@ namespace Hangman
             Console.WriteLine("1. Standard game (random word)");
             Console.WriteLine("2. Custom game (custom word)");
             Console.WriteLine("3. Exit");
-            //var userInput = Console.ReadKey().Key.ToString();
+        }
 
-            //return userInput;
+
+        public static void PrintGameMenu(string password, List<char> correctLetters, List<char> wrongLetters, string letterError)
+        {
+            Console.Clear();
+            PrintTitle();
+            string usedLetters = string.Join(", ", wrongLetters.ToArray());
+            Console.WriteLine("______________________________________");
+            Console.WriteLine(letterError ?? "");
+            Console.WriteLine("");
+            Console.WriteLine($"Password:   {Passwords.GetHiddenPassword(password, correctLetters)}");
+            Console.WriteLine($"Wrong used letters: {usedLetters}");
+            PrintGameStatus(wrongLetters.Count);
+            Console.Write("Pick a letter: ");
+        }
+        private static void PrintGameStatus(int status)
+        {
+
+            // could be simplified
+            // but readability here is more important
+            switch (status)
+            {
+                case 0:
+                    {
+                        Console.WriteLine("  +---+   ");
+                        Console.WriteLine("  |      ");
+                        Console.WriteLine("  |       ");
+                        Console.WriteLine("  |       ");
+                        Console.WriteLine("  |       ");
+                        Console.WriteLine("  |       ");
+                        Console.WriteLine("========= ");
+                        break;
+                    };
+                case 1:
+                    {
+                        Console.WriteLine("  +---+   ");
+                        Console.WriteLine("  |   |   ");
+                        Console.WriteLine("  |       ");
+                        Console.WriteLine("  |       ");
+                        Console.WriteLine("  |       ");
+                        Console.WriteLine("  |       ");
+                        Console.WriteLine("========= ");
+                        break;
+                    };
+                case 2:
+                    {
+                        Console.WriteLine("  +---+   ");
+                        Console.WriteLine("  |   |   ");
+                        Console.WriteLine("  |   O   ");
+                        Console.WriteLine("  |       ");
+                        Console.WriteLine("  |       ");
+                        Console.WriteLine("  |       ");
+                        Console.WriteLine("========= ");
+                        break;
+                    };
+                case 3:
+                    {
+                        Console.WriteLine("  +---+   ");
+                        Console.WriteLine("  |   |   ");
+                        Console.WriteLine("  |   O   ");
+                        Console.WriteLine("  |   |   ");
+                        Console.WriteLine("  |       ");
+                        Console.WriteLine("  |       ");
+                        Console.WriteLine("========= ");
+                        break;
+                    };
+                case 4:
+                    {
+                        Console.WriteLine("  +---+   ");
+                        Console.WriteLine("  |   |   ");
+                        Console.WriteLine("  |   O   ");
+                        Console.WriteLine("  |  /|   ");
+                        Console.WriteLine("  |       ");
+                        Console.WriteLine("  |       ");
+                        Console.WriteLine("========= ");
+                        break;
+                    };
+                case 5:
+                    {
+                        Console.WriteLine("  +---+   ");
+                        Console.WriteLine("  |   |   ");
+                        Console.WriteLine("  |   O   ");
+                        Console.WriteLine(@"  |  /|\  ");
+                        Console.WriteLine("  |       ");
+                        Console.WriteLine("  |       ");
+                        Console.WriteLine("========= ");
+                        break;
+                    };
+                case 6:
+                    {
+                        Console.WriteLine("  +---+   ");
+                        Console.WriteLine("  |   |   ");
+                        Console.WriteLine("  |   O   ");
+                        Console.WriteLine(@"  |  /|\  ");
+                        Console.WriteLine("  |  /    ");
+                        Console.WriteLine("  |       ");
+                        Console.WriteLine("========= ");
+                        break;
+                    };
+                case 7:
+                    {
+                        Console.WriteLine("  +---+   ");
+                        Console.WriteLine("  |   |   ");
+                        Console.WriteLine("  |   O   ");
+                        Console.WriteLine(@"  |  /|\  ");
+                        Console.WriteLine(@"  |  / \  ");
+                        Console.WriteLine("  |       ");
+                        Console.WriteLine("========= ");
+                        break;
+                    };
+            }
         }
     }
 }
