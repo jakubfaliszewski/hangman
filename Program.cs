@@ -10,7 +10,7 @@ namespace hangman
         static void Main()
         {
             StartProgram();
-            
+
         }
 
         static void StartProgram()
@@ -70,16 +70,30 @@ namespace hangman
                     else
                         wrongLetters.Add(newLetter);
                 }
-                isWin = correctLetters.Count == (new HashSet<char>(password)).Count;
-                gameFinished = wrongLetters.Count >= 7 || isWin; 
+                isWin = correctLetters.Count == new HashSet<char>(password.Replace(" ", "")).Count;
+                gameFinished = wrongLetters.Count >= 7 || isWin;
             } while (!gameFinished);
             UI.PrintGameMenu(password, correctLetters, wrongLetters, letterError);
             EndGame(isWin);
         }
 
-        static void CustomGame()
+        static void CustomGame(bool isAgain = false)
         {
-            StandardGame("INPUT");
+            string validChars = "QWERTYUIOPASDFGHJKLZXCVBNM";
+            Console.WriteLine("");
+            if (!isAgain)
+                Console.WriteLine("Please type in your password.");
+            string password = Console.ReadLine().ToUpper();
+            foreach (char c in password)
+            {
+                if (!validChars.Contains(c))
+                {
+                    Console.WriteLine("Password contains invalid character. Try again.");
+                    CustomGame(true);
+                    return;
+                }
+            }
+            StandardGame(password);
         }
 
         static void EndGame(bool isWin)
