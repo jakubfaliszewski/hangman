@@ -29,7 +29,7 @@ namespace Hangman
         }
 
 
-        public static void PrintGameMenu(string password, List<char> correctLetters, List<char> wrongLetters, string letterError)
+        public static void PrintGameMenu(string category, string password, List<char> correctLetters, List<char> wrongLetters, string letterError)
         {
             Console.Clear();
             PrintTitle();
@@ -37,6 +37,8 @@ namespace Hangman
             Console.WriteLine("______________________________________");
             Console.WriteLine(letterError ?? "");
             Console.WriteLine("");
+            if (category != null)
+                Console.WriteLine($"Category: {category}");
             Console.WriteLine($"Password:   {Passwords.GetHiddenPassword(password, correctLetters)}");
             Console.WriteLine($"Wrong used letters: {usedLetters}");
             PrintGameStatus(wrongLetters.Count);

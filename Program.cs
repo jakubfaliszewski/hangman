@@ -40,10 +40,15 @@ namespace hangman
             }
         }
 
-        static void StandardGame(string password = null)
+        static void StandardGame(dynamic password = null)
         {
-            if (password == null)
-                password = Passwords.GetOne();
+            string category = null;
+            if (password == null) {
+                Password passObject = Passwords.GetOne();
+                category = passObject.category;
+                var index = new Random().Next(passObject.passwords.Count);
+                password = passObject.passwords[index];
+            }
             string letterError = null;
             bool gameFinished = false;
             bool isWin = false;
@@ -52,7 +57,7 @@ namespace hangman
             List<char> correctLetters = new List<char>();
             do
             {
-                UI.PrintGameMenu(password, correctLetters, wrongLetters, letterError);
+                UI.PrintGameMenu(category, password, correctLetters, wrongLetters, letterError);
                 letterError = null;
                 char newLetter = Char.ToUpper(Console.ReadKey().KeyChar);
                 if (correctLetters.Contains(newLetter) || wrongLetters.Contains(newLetter))
@@ -73,20 +78,20 @@ namespace hangman
                 isWin = correctLetters.Count == new HashSet<char>(password.Replace(" ", "")).Count;
                 gameFinished = wrongLetters.Count >= 7 || isWin;
             } while (!gameFinished);
-            UI.PrintGameMenu(password, correctLetters, wrongLetters, letterError);
+            UI.PrintGameMenu(category, password, correctLetters, wrongLetters, letterError);
             EndGame(isWin);
         }
 
         static void CustomGame(bool isAgain = false)
         {
-            string validChars = "QWERTYUIOPASDFGHJKLZXCVBNM";
+            string validChars = "QWERTYUIOPASDFGHJKLZXCVBNM ";
             Console.WriteLine("");
             if (!isAgain)
                 Console.WriteLine("Please type in your password.");
             string password = Console.ReadLine().ToUpper();
             foreach (char c in password)
             {
-                if (!validChars.Contains(c))
+                if (!validChars.Contains(c) || password.Length == 0)
                 {
                     Console.WriteLine("Password contains invalid character. Try again.");
                     CustomGame(true);

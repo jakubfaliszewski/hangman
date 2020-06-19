@@ -4,11 +4,26 @@ using System.Text;
 
 namespace Hangman
 {
+
+    public class Password
+    {
+        public string category;
+        public List<string> passwords;
+
+        public Password(string category, List<string> passwords)
+        {
+            this.category = category;
+            this.passwords = passwords;
+        }
+
+    }
+
     public class Passwords
     {
+
         static Random rnd = new Random();
 
-        public static string GetOne()
+        public static Password GetOne()
         {
             int r = rnd.Next(GetList().Count);
 
@@ -20,14 +35,15 @@ namespace Hangman
             string hiddenPass = "";
             foreach (char c in password)
             {
-                if(letters.Contains(c))
+                if (letters.Contains(c))
                 {
                     hiddenPass += $"{c} ";
                 }
-                else if(c == ' ')
+                else if (c == ' ')
                 {
                     hiddenPass += "  ";
-                } else
+                }
+                else
                 {
                     hiddenPass += "_ ";
                 }
@@ -35,14 +51,29 @@ namespace Hangman
             return hiddenPass;
         }
 
-        private static List<string> GetList()
+        private static List<Password> GetList()
         {
-            return new List<string>
-            {
-                "OMEGA",
-                "ALFA",
-                "KAPPA"
-            };
+            Password animals = new Password("Animals", new List<string> {
+                "CHICKEN", "GIRAFFE", "BUTTERFLY", "PENGUIN", "ELEPHANT", "CROCODILE", "RABBIT"
+            });
+            Password food = new Password("Food", new List<string> {
+                "CHOCOLATE", "BAGUETTE", "SANDWICH", "BROCCOLI", "AVOCADO", "SALT AND PEPPER", "LEMONADE"
+            });
+            Password home = new Password("Home", new List<string> {
+                "DOORMAT", "FIRE EXTINGUISHER", "VACUUM CLEANER", "ALARM CLOCK", "PILLOW", "TRASH CAN", "CURTAINS"
+            });
+            Password music = new Password("Music", new List<string> {
+                "BANJO", "KAZOO", "SAXOPHONE", "KEYBOARD", "TRUMPET", "ABLETON"
+            });
+            Password sport = new Password("Sport", new List<string> {
+                "SOCCER", "TABLE TENNIS", "BADMINTON", "SWIMMING POOL", "CHESS", "SCUBA DIVING", "BOWLING"
+            });
+            Password computer = new Password("Computer", new List<string> {
+                "MICROPHONE", "CALCULATOR", "CONTROLLER", "SPEAKERS", "RAM BONES", "HDMI CABLE", "GAMING SET"
+            });
+
+            return new List<Password>() { animals, food, home, music, sport, computer };
+
         }
     }
 }
