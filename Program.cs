@@ -8,7 +8,7 @@ namespace hangman
     class Program
     {
         // instead of required enum
-        // disctonary here is more reliable
+        // dictonary here is more reliable
         private static Dictionary<string, Action> MenuOptions = new Dictionary<string, Action>(){
             {"D1", () => StandardGame()},
             {"D2", () => CustomGame()},
@@ -33,6 +33,7 @@ namespace hangman
         {
             string userInput = Console.ReadKey().Key.ToString();
             Action action = null;
+            // check if user input is corresponding to viable options from MenuOptions
             bool isValid = MenuOptions.TryGetValue(userInput, out action);
             if (isValid)
                 action = MenuOptions[userInput];
@@ -49,6 +50,8 @@ namespace hangman
             string category = null;
             if (password == null)
             {
+                // is password is not given (not custom mode)
+                // generate pass from Passwords class
                 Password passObject = Passwords.GetOne();
                 category = passObject.category;
                 var index = new Random().Next(passObject.passwords.Count);
@@ -57,11 +60,11 @@ namespace hangman
             string letterError = null;
             bool isWin;
             bool gameFinished;
-            string validChars = "QWERTYUIOPASDFGHJKLZXCVBNM";
             List<char> wrongLetters = new List<char>();
             List<char> correctLetters = new List<char>();
             do
             {
+                // print (refresh) game until it's not finished (pass not guessed or still chances available)
                 UI.PrintGameMenu(category, password, correctLetters, wrongLetters, letterError);
                 letterError = null;
                 char newLetter = Char.ToUpper(Console.ReadKey().KeyChar);
@@ -69,7 +72,7 @@ namespace hangman
                 {
                     letterError = "You have already gave this letter!";
                 }
-                else if (!validChars.Contains(newLetter))
+                else if (!Passwords.VALID_CHARS.Contains(newLetter))
                 {
                     letterError = "Invalid character!";
                 }
@@ -89,14 +92,13 @@ namespace hangman
 
         static void CustomGame(bool isAgain = false)
         {
-            string validChars = "QWERTYUIOPASDFGHJKLZXCVBNM ";
             Console.WriteLine("");
             if (!isAgain)
                 Console.WriteLine("Please type in your password.");
             string password = Console.ReadLine().ToUpper();
             foreach (char c in password)
             {
-                if (!validChars.Contains(c) || password.Length == 0)
+                if (!Passwords.VALID_CHARS.Contains(c) || password.Length == 0)
                 {
                     Console.WriteLine("Password contains invalid character. Try again.");
                     CustomGame(true);

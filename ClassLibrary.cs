@@ -4,6 +4,7 @@ using System.Text;
 
 namespace HangmanClassLib
 {
+
     public class Password
     {
         public string category;
@@ -19,6 +20,8 @@ namespace HangmanClassLib
 
     public class Passwords
     {
+        // restrict chars that can be used in password
+        public static string VALID_CHARS = "QWERTYUIOPASDFGHJKLZXCVBNM";
 
         static Random rnd = new Random();
 
