@@ -11,7 +11,8 @@ namespace hangman
         private static Dictionary<string, Action> MenuOptions = new Dictionary<string, Action>(){
             {"D1", () => StandardGame()},
             {"D2", () => CustomGame()},
-            {"D3", () => ExitGame()},
+            {"D3", () => Help()},
+            {"D4", () => ExitGame()},
         };
 
 
@@ -53,8 +54,8 @@ namespace hangman
                 password = passObject.passwords[index];
             }
             string letterError = null;
-            bool gameFinished = false;
-            bool isWin = false;
+            bool isWin;
+            bool gameFinished;
             string validChars = "QWERTYUIOPASDFGHJKLZXCVBNM";
             List<char> wrongLetters = new List<char>();
             List<char> correctLetters = new List<char>();
@@ -104,6 +105,19 @@ namespace hangman
             StandardGame(password);
         }
 
+        static void Help()
+        {
+            UI.PrintHelp();
+            
+            Console.ReadKey();
+            StartProgram();
+        }
+
+
+        static void ExitGame()
+        {
+            Environment.Exit(0);
+        }
         static void EndGame(bool isWin)
         {
             Console.WriteLine("");
@@ -112,11 +126,6 @@ namespace hangman
             {
                 StartProgram();
             }
-        }
-
-        static void ExitGame()
-        {
-            Environment.Exit(0);
         }
     }
 }

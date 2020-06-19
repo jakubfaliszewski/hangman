@@ -25,7 +25,9 @@ namespace Hangman
         {
             Console.WriteLine("1. Standard game (random word)");
             Console.WriteLine("2. Custom game (custom word)");
-            Console.WriteLine("3. Exit");
+            Console.WriteLine("3. Help");
+            Console.WriteLine("");
+            Console.WriteLine("4. Exit");
         }
 
 
@@ -60,6 +62,19 @@ namespace Hangman
             if (Char.ToUpper(userInput) == 'Y')
                 return true;
             else return false;
+        }
+        public static void PrintHelp()
+        {
+            PrintTitle();
+            Console.WriteLine("Hangman is a guessing game - computer will give you a random password and you must guess it.");
+            Console.WriteLine("Simple?");
+            Console.WriteLine("Yeah, it is. You must guess the password letter by letter - but you can make a mistake only 6 times.");
+            Console.WriteLine("7th mistake will cause game to end. Then you'll die on a gibbet.");
+            Console.WriteLine("Good luck!.");
+            Console.WriteLine("");
+            Console.WriteLine("Passwords contains only letters from english alphabet.");
+            Console.WriteLine("");
+            Console.WriteLine("Press any key to back to main menu...");
         }
         private static void PrintGameStatus(int status)
         {
