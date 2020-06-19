@@ -16,8 +16,8 @@ namespace Hangman
             Console.WriteLine(@"| '_ \ / _` | '_ \ / _` | '_ ` _ \ / _` | '_ \ ");
             Console.WriteLine(@"| | | | (_| | | | | (_| | | | | | | (_| | | | |");
             Console.WriteLine(@"|_| |_|\__,_|_| |_|\__, |_| |_| |_|\__,_|_| |_|");
-            Console.WriteLine(@"                    __/ |            ");
-            Console.WriteLine(@"                   |___/  ");
+            Console.WriteLine(@"                    __/ |                      ");
+            Console.WriteLine(@"                   |___/                       ");
             Console.WriteLine("");
         }
 
@@ -55,7 +55,7 @@ namespace Hangman
             {
                 Console.WriteLine("Oh, man. So sorry. You lost");
             }
-            Console.WriteLine("Do you want to try again? Y/N");
+            Console.WriteLine("Press Y to try again, other key will close the game.");
             char userInput = Console.ReadKey().KeyChar;
             if (Char.ToUpper(userInput) == 'Y')
                 return true;

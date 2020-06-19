@@ -6,11 +6,18 @@ namespace hangman
 {
     class Program
     {
+        // instead of required enum
+        // disctonary here is more reliable
+        private static Dictionary<string, Action> MenuOptions = new Dictionary<string, Action>(){
+            {"D1", () => StandardGame()},
+            {"D2", () => CustomGame()},
+            {"D3", () => ExitGame()},
+        };
+
 
         static void Main()
         {
             StartProgram();
-
         }
 
         static void StartProgram()
@@ -22,28 +29,24 @@ namespace hangman
 
         static void GetMainMenu()
         {
-            switch (Console.ReadKey().Key.ToString())
+            string userInput = Console.ReadKey().Key.ToString();
+            Action action = null;
+            bool isValid = MenuOptions.TryGetValue(userInput, out action);
+            if (isValid)
+                action = MenuOptions[userInput];
+            else action = new Action(() =>
             {
-                case "D1":
-                    StandardGame();
-                    break;
-                case "D2":
-                    CustomGame();
-                    break;
-                case "D3":
-                    ExitGame();
-                    break;
-                default:
-                    Console.WriteLine(" - unknown input. Please input valid key");
-                    GetMainMenu();
-                    break;
-            }
+                Console.WriteLine(" - unknown input. Please input valid key");
+                GetMainMenu();
+            });
+            action();
         }
 
         static void StandardGame(dynamic password = null)
         {
             string category = null;
-            if (password == null) {
+            if (password == null)
+            {
                 Password passObject = Passwords.GetOne();
                 category = passObject.category;
                 var index = new Random().Next(passObject.passwords.Count);
