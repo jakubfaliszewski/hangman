@@ -1,3 +1,4 @@
+![img](https://i.imgur.com/uUgpCPX.png)
 # Hangman
 
 Hangman is a simple console game.
