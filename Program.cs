@@ -1,4 +1,5 @@
 ﻿using Hangman;
+using HangmanClassLib;
 using System;
 using System.Collections.Generic;
 

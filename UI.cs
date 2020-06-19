@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using HangmanClassLib;
+
 using System.Text;
 
 namespace Hangman

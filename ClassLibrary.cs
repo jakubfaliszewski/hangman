@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Hangman
+namespace HangmanClassLib
 {
-
     public class Password
     {
         public string category;
